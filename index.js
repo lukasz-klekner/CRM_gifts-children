@@ -2,6 +2,8 @@ const { urlencoded, static, json } = require('express')
 const express = require('express')
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
+const { childRouter } = require('./routes/child')
+const { homeRouter } = require('./routes/home')
 const { handleError } = require('./utils/errors')
 
 const app = express()
@@ -19,13 +21,8 @@ app.engine('.hbs', engine({
 }))
 app.set('view engine', '.hbs')
 
-app.get('/', (req, res) =>{
-    res.redirect('/children')
-})
-
-app.get('/children', (req, res) =>{
-    res.render('children/list')
-})
+app.use('/', homeRouter)
+app.use('/child', childRouter)
 
 app.use(handleError)
 
