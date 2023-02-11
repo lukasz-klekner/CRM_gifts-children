@@ -2,6 +2,7 @@ const { urlencoded, static, json } = require('express')
 const express = require('express')
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
+const { handleError } = require('./utils/errors')
 
 const app = express()
 
@@ -22,7 +23,7 @@ app.get('/', (req, res) =>{
     res.send('Hello, world')
 })
 
-// app.use(handleError)
+app.use(handleError)
 
 app.listen(3000, 'localhost', () => {
     console.log('listening on port 3000')
