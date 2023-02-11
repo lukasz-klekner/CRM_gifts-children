@@ -6,7 +6,9 @@
                 {{this.name}}
                 <select>
                     <option value="">Brak</option>
-                    {{!-- <option value="{{this.gift}}">{{this.gift}}</option> --}}
+                    {{#each ../giftsList}}
+                        <option value="{{this.name}}">{{this.name}}</option>
+                    {{/each}}
                 </select>
             </label>
             <button>Zapisz</button>
