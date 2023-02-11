@@ -20,7 +20,11 @@ app.engine('.hbs', engine({
 app.set('view engine', '.hbs')
 
 app.get('/', (req, res) =>{
-    res.send('Hello, world')
+    res.redirect('/children')
+})
+
+app.get('/children', (req, res) =>{
+    res.render('children/list')
 })
 
 app.use(handleError)
