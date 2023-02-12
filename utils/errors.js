@@ -1,7 +1,7 @@
 class ValidationError extends Error {}
 
 const handleError = (err, req, res, next) => {
-    console.err(err)
+    console.error(err)
 
     res
         .status(err instanceof ValidationError ? '400': '500')

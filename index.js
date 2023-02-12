@@ -1,4 +1,5 @@
 const { urlencoded, static, json } = require('express')
+require('express-async-errors')
 const express = require('express')
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
