@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb")
 const { giftsCollection } = require("../utils/db")
 const { ValidationError } = require("../utils/errors")
 
@@ -11,6 +12,7 @@ class GiftRecord {
             throw new ValidationError('Liczba sztuk prezentu musi byc wieksza od 1!')
         }
 
+        this._id = object._id
         this.name = object.name
         this.amount = object.amount
     }
@@ -22,7 +24,15 @@ class GiftRecord {
     }
 
     static async listAll(){
-        return await giftsCollection.find().toArray()
+        return (await giftsCollection.find().toArray()).map(obj => new GiftRecord(obj))
+    }
+
+    static async findOne(id){
+        const result = await giftsCollection.findOne({
+            _id: new ObjectId(id)
+        })
+
+        return result === null ? null : new GiftRecord(result)
     }
 }
 

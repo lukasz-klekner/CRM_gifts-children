@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb")
 const { childrenCollection } = require("../utils/db")
 const { ValidationError } = require("../utils/errors")
 
@@ -7,18 +8,39 @@ class ChildRecord {
             throw new ValidationError('Imię powinno mieć co najmniej 3 litery, a najwiecej 30 liter!')
         }
 
+        this._id = object._id
         this.name = object.name
         this.giftId = object.giftId
     }
 
     static async listAll(){
-        return await childrenCollection.find().toArray() 
+        return (await childrenCollection.find().toArray()).map(obj => new ChildRecord(obj)) 
+    }
+
+    static async findOne(id){
+        const result = await childrenCollection.findOne({
+            _id: new ObjectId(id)
+        })
+
+        return result === null ? null : new ChildRecord(result)
     }
 
     async insert(){
         await childrenCollection.insertOne(this)
 
         return this._id
+    }
+
+    async update(){
+        const { giftId, _id, name } = this
+        
+        console.log(this)
+        return await childrenCollection.replaceOne({
+            _id
+        }, {
+            name,
+            giftId: giftId === null ? null :new ObjectId(giftId),
+        })
     }
 }
 

@@ -2,9 +2,10 @@
 <ul>
     {{#each childrenList}}
         <li>
+            <form action="/child/gift/{{this._id}}?_method=PATCH" method="POST">
                 <label>
                     {{this.name}}
-                    <select>
+                    <select name="giftId">
                         <option value="">Brak</option>
                         {{#each ../giftsList}}
                             <option value="{{this._id}}" {{#if (equalId this._id ../giftId)}}selected="selected"{{/if}}>{{this.name}}</option>
@@ -12,6 +13,7 @@
                     </select>
                 </label>
                 <button>Zapisz</button>
+            </form>
         </li>
     {{/each}}
 </ul>
