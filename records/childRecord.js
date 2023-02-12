@@ -1,22 +1,8 @@
+const { childrenCollection } = require("../utils/db")
+
 class ChildRecord {
-    static listAll(){
-        return [
-            {
-                id: 'abcdef',
-                name: 'Amadeusz',
-                gift: 'Samochodzik'
-            },
-            {
-                id: 'adcdef',
-                name: 'Beata',
-                gift: 'Domek dla lalek'
-            },
-            {
-                id: 'accdef',
-                name: 'Piotrek',
-                gift: 'Puzzle'
-            },
-        ]
+    static async listAll(){
+        return await childrenCollection.find().toArray() 
     }
 }
 
