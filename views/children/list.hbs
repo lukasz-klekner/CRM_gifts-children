@@ -7,7 +7,7 @@
                 <select>
                     <option value="">Brak</option>
                     {{#each ../giftsList}}
-                        <option value="{{this.name}}">{{this.name}}</option>
+                        <option value="{{this._id}}" {{#if (equalId this._id ../giftId)}}selected="selected"{{/if}}>{{this.name}}</option>
                     {{/each}}
                 </select>
             </label>

@@ -7,6 +7,7 @@ const { childRouter } = require('./routes/child')
 const { giftRouter } = require('./routes/gift')
 const { homeRouter } = require('./routes/home')
 const { handleError } = require('./utils/errors')
+const { handlebarsHelpers } = require('./utils/handlebars-helpers')
 require('./utils/db')
 
 const app = express()
@@ -20,7 +21,7 @@ app.use(static('public'))
 
 app.engine('.hbs', engine({ 
     extname: '.hbs',
-    // helpers: handlebarsHelpers
+    helpers: handlebarsHelpers
 }))
 app.set('view engine', '.hbs')
 
