@@ -18,7 +18,7 @@ class GiftRecord {
     async insert(){
         await giftsCollection.insertOne(this)
 
-        return this.id
+        return this._id
     }
 
     static async listAll(){
