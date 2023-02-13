@@ -36,12 +36,21 @@ childRouter
         }
 
         const { giftId } = req.body
-         const result  = giftId === "" ? null : await GiftRecord.findOne(giftId)
+        const result  = giftId === "" ? null : await GiftRecord.findOne(giftId)
 
-         child.giftId = result?._id ?? null
-         child.update()
+        if(result){
+            const giftInStock = result.amount - (await ChildRecord.listAllWithTheSameGift(giftId)).length
+            
+            if(giftInStock <= 0){
+                throw new Error('This gift is out of stock atm! :-(')
+            }
+        }
 
-         res.redirect('/child')
+
+        child.giftId = result?._id ?? null
+        child.update()
+
+        res.redirect('/child')
     })
 
 module.exports = {

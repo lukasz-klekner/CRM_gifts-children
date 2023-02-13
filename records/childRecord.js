@@ -17,6 +17,12 @@ class ChildRecord {
         return (await childrenCollection.find().toArray()).map(obj => new ChildRecord(obj)) 
     }
 
+    static async listAllWithTheSameGift(id){
+        return (await childrenCollection.find({
+            giftId: new ObjectId(id)
+        }).toArray()).map(obj => new ChildRecord(obj)) 
+    }
+
     static async findOne(id){
         const result = await childrenCollection.findOne({
             _id: new ObjectId(id)
@@ -34,7 +40,6 @@ class ChildRecord {
     async update(){
         const { giftId, _id, name } = this
         
-        console.log(this)
         return await childrenCollection.replaceOne({
             _id
         }, {
