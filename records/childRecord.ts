@@ -6,7 +6,7 @@ import { ValidationError } from "../utils/errors"
 export class ChildRecord {
     _id?: ObjectId
     name: string
-    giftId?: string
+    giftId?: ObjectId
 
     constructor(object: ChildRecord){
         if(!object.name || object.name.length < 3 || object.name.length > 30){
