@@ -1,9 +1,14 @@
-const { ObjectId } = require("mongodb")
-const { giftsCollection } = require("../utils/db")
-const { ValidationError } = require("../utils/errors")
+import  { ObjectId } from "mongodb"
 
-class GiftRecord {
-    constructor(object){
+import  { giftsCollection } from "../utils/db"
+import { ValidationError } from "../utils/errors"
+
+export class GiftRecord {
+    _id?: ObjectId
+    name: string
+    amount: number
+
+    constructor(object: GiftRecord){
         if(!object.name || object.name.length < 3 || object.name.length > 50){
             throw new ValidationError('Nazwa prezentu musi miec od 3 do 50 znakow!')
         }
@@ -24,18 +29,14 @@ class GiftRecord {
     }
 
     static async listAll(){
-        return (await giftsCollection.find().toArray()).map(obj => new GiftRecord(obj))
+        return (await giftsCollection.find().toArray() as GiftRecord[]).map(obj => new GiftRecord(obj))
     }
 
-    static async findOne(id){
+    static async findOne(id: string): Promise<GiftRecord | null>{
         const result = await giftsCollection.findOne({
             _id: new ObjectId(id)
-        })
+        }) as GiftRecord
 
         return result === null ? null : new GiftRecord(result)
     }
-}
-
-module.exports = {
-    GiftRecord
 }

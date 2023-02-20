@@ -28,7 +28,7 @@ export class ChildRecord {
         }).toArray() as ChildRecord[]).map((obj) => new ChildRecord(obj)) 
     }
 
-    static async findOne(id: ObjectId): Promise<ChildRecord | null>{
+    static async findOne(id: string): Promise<ChildRecord | null>{
         const result = await childrenCollection.findOne({
             _id: new ObjectId(id)
         }) as ChildRecord
