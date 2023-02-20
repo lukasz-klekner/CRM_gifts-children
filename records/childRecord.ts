@@ -1,9 +1,14 @@
-const { ObjectId } = require("mongodb")
-const { childrenCollection } = require("../utils/db")
-const { ValidationError } = require("../utils/errors")
+import { ObjectId } from "mongodb"
 
-class ChildRecord {
-    constructor(object){
+import { childrenCollection } from "../utils/db"
+import { ValidationError } from "../utils/errors"
+
+export class ChildRecord {
+    _id?: ObjectId
+    name: string
+    giftId?: string
+
+    constructor(object: ChildRecord){
         if(!object.name || object.name.length < 3 || object.name.length > 30){
             throw new ValidationError('Imię powinno mieć co najmniej 3 litery, a najwiecej 30 liter!')
         }
@@ -14,19 +19,19 @@ class ChildRecord {
     }
 
     static async listAll(){
-        return (await childrenCollection.find().toArray()).map(obj => new ChildRecord(obj)) 
+        return (await childrenCollection.find().toArray() as ChildRecord[]).map((obj) => new ChildRecord(obj)) 
     }
 
-    static async listAllWithTheSameGift(id){
+    static async listAllWithTheSameGift(id: string){
         return (await childrenCollection.find({
             giftId: new ObjectId(id)
-        }).toArray()).map(obj => new ChildRecord(obj)) 
+        }).toArray() as ChildRecord[]).map((obj) => new ChildRecord(obj)) 
     }
 
-    static async findOne(id){
+    static async findOne(id: ObjectId): Promise<ChildRecord | null>{
         const result = await childrenCollection.findOne({
             _id: new ObjectId(id)
-        })
+        }) as ChildRecord
 
         return result === null ? null : new ChildRecord(result)
     }
@@ -47,8 +52,4 @@ class ChildRecord {
             giftId: giftId === null ? null :new ObjectId(giftId),
         })
     }
-}
-
-module.exports = {
-    ChildRecord
 }
