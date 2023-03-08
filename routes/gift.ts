@@ -7,7 +7,7 @@ export const giftRouter = Router()
 giftRouter
     .get('/', async (_, res) =>{
         const giftsList = await GiftRecord.listAll()
-            res.render('gift/list', {
+            res.json({
             giftsList
         })
     })
