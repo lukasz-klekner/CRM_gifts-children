@@ -15,7 +15,7 @@ import './utils/db'
 const app = express()
 
 app.use(cors({
-    origin: 'https://localhost:3001'
+    origin: 'http://localhost:3001'
 }))
 app.use(json())
 
