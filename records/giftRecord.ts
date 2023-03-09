@@ -1,9 +1,10 @@
 import  { ObjectId } from "mongodb"
+import { GiftItem } from "../types"
 
 import  { giftsCollection } from "../utils/db"
 import { ValidationError } from "../utils/errors"
 
-export class GiftRecord {
+export class GiftRecord implements GiftItem {
     _id?: ObjectId
     name: string
     amount: number
