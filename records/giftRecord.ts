@@ -29,6 +29,12 @@ export class GiftRecord implements GiftItem {
         return this._id
     }
 
+    async delete(){
+        await giftsCollection.deleteOne({
+            _id: new Object(this._id)
+        })
+    }
+
     static async listAll(){
         return (await giftsCollection.find().toArray() as GiftRecord[]).map(obj => new GiftRecord(obj))
     }
