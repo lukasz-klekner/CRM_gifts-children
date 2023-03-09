@@ -5,7 +5,7 @@ import  { giftsCollection } from "../utils/db"
 import { ValidationError } from "../utils/errors"
 
 export class GiftRecord implements GiftItem {
-    _id?: ObjectId
+    _id: ObjectId
     name: string
     amount: number
 

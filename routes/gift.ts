@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { ChildRecord } from "../records/childRecord"
 import { GiftRecord } from "../records/giftRecord"
+import { GiftItemRequest } from "../types"
 import { ValidationError } from "../utils/errors"
 
 
@@ -14,14 +15,10 @@ giftRouter
         })
     })
     .post('/', async (req, res) =>{
-        const data: GiftRecord = {
-            ...req.body,
-            amount: Number(req.body.amount)
-        }
+        const newGift = new GiftRecord(req.body)
 
-        const newGift = new GiftRecord(data)
         await newGift.insert()
-        res.redirect('/gift')
+        res.json(newGift)
     })
     .delete('/:id', async (req, res) =>{
         const gift = await GiftRecord.findOne(req.params.id)
