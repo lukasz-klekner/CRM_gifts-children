@@ -7,3 +7,8 @@ export interface GiftItem {
 }
 
 export type GiftItemRequest = Omit<GiftItem, '_id'>
+
+export interface SingleGiftItemRequest {
+    gift: GiftItem,
+    counter: number
+}

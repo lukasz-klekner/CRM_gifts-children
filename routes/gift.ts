@@ -14,6 +14,15 @@ giftRouter
             giftsList
         })
     })
+    .get('/:id', async (req, res) =>{
+        const gift = await GiftRecord.findOne(req.params.id)
+        const childrenWithTheSameGift = await ChildRecord.listAllWithTheSameGift(req.params.id)
+
+            res.json({
+            gift,
+            counter: childrenWithTheSameGift.length
+        })
+    })
     .post('/', async (req, res) =>{
         const newGift = new GiftRecord(req.body)
 
