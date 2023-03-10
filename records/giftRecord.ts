@@ -9,7 +9,7 @@ export class GiftRecord implements GiftItem {
     name: string
     amount: number
 
-    constructor(object: GiftRecord){
+    constructor(object: GiftItem){
         if(!object.name || object.name.length < 3 || object.name.length > 50){
             throw new ValidationError('Nazwa prezentu musi miec od 3 do 50 znakow!')
         }

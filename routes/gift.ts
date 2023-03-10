@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { ChildRecord } from "../records/childRecord"
 import { GiftRecord } from "../records/giftRecord"
-import { GiftItemRequest } from "../types"
+import { SingleGiftItemRequest } from "../types"
 import { ValidationError } from "../utils/errors"
 
 
@@ -21,7 +21,7 @@ giftRouter
             res.json({
             gift,
             counter: childrenWithTheSameGift.length
-        })
+        } as SingleGiftItemRequest)
     })
     .post('/', async (req, res) =>{
         const newGift = new GiftRecord(req.body)

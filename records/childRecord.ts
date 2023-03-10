@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb"
+import { ChildItem } from "../types"
 
 import { childrenCollection } from "../utils/db"
 import { ValidationError } from "../utils/errors"
@@ -8,7 +9,7 @@ export class ChildRecord {
     name: string
     giftId?: ObjectId
 
-    constructor(object: ChildRecord){
+    constructor(object: ChildItem){
         if(!object.name || object.name.length < 3 || object.name.length > 30){
             throw new ValidationError('Imię powinno mieć co najmniej 3 litery, a najwiecej 30 liter!')
         }
@@ -19,19 +20,19 @@ export class ChildRecord {
     }
 
     static async listAll(){
-        return (await childrenCollection.find().toArray() as ChildRecord[]).map((obj) => new ChildRecord(obj)) 
+        return (await childrenCollection.find().toArray() as ChildItem[]).map((obj) => new ChildRecord(obj)) 
     }
 
     static async listAllWithTheSameGift(id: string){
         return (await childrenCollection.find({
             giftId: new ObjectId(id)
-        }).toArray() as ChildRecord[]).map((obj) => new ChildRecord(obj)) 
+        }).toArray() as ChildItem[]).map((obj) => new ChildRecord(obj)) 
     }
 
     static async findOne(id: string): Promise<ChildRecord | null>{
         const result = await childrenCollection.findOne({
             _id: new ObjectId(id)
-        }) as ChildRecord
+        }) as ChildItem
 
         return result === null ? null : new ChildRecord(result)
     }
