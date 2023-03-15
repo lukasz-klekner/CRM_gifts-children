@@ -4,7 +4,7 @@ import { GiftItem } from "../gift"
 export interface ChildItem {
     _id: ObjectId
     name: string
-    giftId?: ObjectId
+    giftId: ObjectId
 }
 
 export interface ListChildrenResponse {
@@ -12,7 +12,7 @@ export interface ListChildrenResponse {
     giftsList: GiftItem[]
 }
 
-export type ChildItemRequest = Omit<ChildItem, '_id'>
+export type ChildItemRequest = Omit<ChildItem, '_id' | 'giftId'>
 
 export interface SetGiftForChildRequest {
     giftId: ObjectId
