@@ -1,5 +1,5 @@
-import * as express from 'express'
-import * as cors from 'cors'
+import express from 'express'
+import cors from 'cors'
 import  { urlencoded, static as staticExpress, json } from 'express'
 import 'express-async-errors'
 // import { engine } from 'express-handlebars'

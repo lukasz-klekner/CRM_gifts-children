@@ -5,8 +5,10 @@
         "sourceMap": true,
         "target": "es6",
         "downlevelIteration": true,
-        "lib": ["es6", "DOM.Iterable"],
+        "lib": ["es6"],
+        "module": "CommonJS",
         "outDir": "dist",
         "moduleResolution": "node",
+        "esModuleInterop": true
     }
 }
